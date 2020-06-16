@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="manifest" href="./manifest.json">
+    <title>PWA Sample</title>
+</head>
+<body>
+    <div id="app" >
+        <p>{{ message }}</p>
+        <button v-on:click="reverseMessage">Recerse Message</button>
+    </div>
+    <script>
+        if('serviceWorker' in Navigator) {
+            navigator.serviceWorker.register('service_worker.js').then(function (registration){
+                console.log('Registration Success');
+            }).catch(function (err) {
+                console.log('Registration Failed',err);
+                
+            });
+        }
+
+        var app = new Vue({
+            el:'#app',
+            data: {
+                message: "こんにちは"
+            },
+            methods:{
+                reverseMessage: function () {
+                    this.message = this.message.split('').reverse().join('')                    
+                }
+            }
+        });
+    </script>
+</body>
+</html>
